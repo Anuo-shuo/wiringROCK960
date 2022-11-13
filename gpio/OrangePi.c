@@ -1321,11 +1321,11 @@ void OrangePiReadAll(void)
 #elif CONFIG_ORANGEPI_R1PLUS
     printf (" +------+-----+----------+------+---+ R1 Plus  +---+---+--+----------+-----+------+\n");
 #elif CONFIG_ROCK960
-    printf (" +------+-----+-------------+------+---+  ROCK960 +---+---+--+-------------+-----+------+\n");
+    printf (" +------+-----+-------------+------+---+  ROCK960 +---+---+--+--------------+-----+------+\n");
 #endif
 
-    printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |    Name     | wPi | GPIO |\n");
-    printf (" +------+-----+-------------+------+---+----++----+---+------+-------------+-----+------+\n");
+    printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |     Name     | wPi | GPIO |\n");
+    printf (" +------+-----+-------------+------+---+----++----+---+------+--------------+-----+------+\n");
 
 #if defined CONFIG_ORANGEPI_H3 || defined CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_PRIME || CONFIG_ORANGEPI_WIN || CONFIG_ROCK960
     for (pin = 1 ; pin <= 40; pin += 2)
@@ -1341,8 +1341,8 @@ void OrangePiReadAll(void)
 #endif
         readallPhys(pin);
 
-    printf (" +------+-----+-------------+------+---+----++----+---+------+-------------+-----+------+\n");
-    printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |    Name     | wPi | GPIO |\n");
+    printf (" +------+-----+-------------+------+---+----++----+---+------+--------------+-----+------+\n");
+    printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |     Name     | wPi | GPIO |\n");
 
 #ifdef CONFIG_ORANGEPI_PC2
     printf (" +------+-----+----------+------+---+  OPi PC2 +---+------+----------+-----+------+\n");
@@ -1379,7 +1379,7 @@ void OrangePiReadAll(void)
 #elif CONFIG_ORANGEPI_R1PLUS
     printf (" +------+-----+----------+------+---+ R1 Plus  +---+---+--+----------+-----+------+\n");
 #elif CONFIG_ROCK960
-    printf (" +------+-----+-------------+------+---+  ROCK960 +---+---+--+-------------+-----+------+\n");
+    printf (" +------+-----+-------------+------+---+  ROCK960 +---+---+--+--------------+-----+------+\n");
 #endif
 
     wiringPiDebug = tmp;
