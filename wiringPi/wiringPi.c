@@ -2474,6 +2474,10 @@ int wiringPiSetup (void)
 	if ((int32_t)(unsigned long)grf_base == -1)
 		return wiringPiFailure(WPI_ALMOST,
 				"wiringPiSetup: mmap (GPIO1_BASE) failed: %s\n", strerror(errno));
+  gpio0_base = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO0_BASE);
+	if ((int32_t)(unsigned long)grf_base == -1)
+		return wiringPiFailure(WPI_ALMOST,
+				"wiringPiSetup: mmap (GPIO0_BASE) failed: %s\n", strerror(errno));
 	gpio4_base = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO4_BASE);
 	if ((int32_t)(unsigned long)gpio4_base == -1)
 		return wiringPiFailure(WPI_ALMOST,

@@ -1559,7 +1559,7 @@ int pinToGpioOrangePi [64] =
 	 73,  120,      //12,13
 	130,  127,      //14,15
 	129,  123,      //16,17
-	 -1,   -1,      //18,19
+	  6,    2,      //18,19
 	 41,   42,      //20,21
 	121,  128,      //22,23
 	124,  131,      //24,25
@@ -1585,7 +1585,7 @@ int physToGpioOrangePi[64] =
 	 73,  120,  //17,18
 	130,  127,  //19,20
 	129,  123,  //21,22
-	 -1,   -1, //23, 24
+	  6,    2, //23, 24
 	 41,   42, 	// 25, 26
 
 	121,  128,    //27, 28
@@ -1615,7 +1615,7 @@ int physToPinOrangePi[64] =
 	12, 13, //17,18
 	14, 15, //19,20
 	16, 17, //21,22
-	-1, -1, //23, 24
+	18, 19, //23, 24
 	20, 21,	// 25, 26
 
 	22, 23,   //27, 28
@@ -1630,13 +1630,13 @@ int physToPinOrangePi[64] =
 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,	// ... 56
 	-1, -1, -1, -1, -1, -1, -1,	// ... 63
 };
-  int ORANGEPI_PIN_MASK[5][32] =  //[BANK]	[INDEX]
+  int ORANGEPI_PIN_MASK[5][32] =  //[BANK]	[INDEX]  //1表示启用该引脚
   {
-   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//PA
-   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//PB
-   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//PC
-   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//PD
-   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//PD
+   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//GPIO0 (A0-D7)
+   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//GPIO1 (A0-D7)
+   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//GPIO2
+   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//GPIO3
+   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,},//GPIO4
   };
 
 volatile uint32_t *gpio2_base;
@@ -1647,6 +1647,7 @@ volatile uint32_t *pmucru_base;
 volatile uint32_t *gpio1_base;
 volatile uint32_t *gpio4_base;
 volatile uint32_t *gpio3_base;
+volatile uint32_t *gpio0_base;
 #endif  /* CONFIG_ROCK960 */
 
 
@@ -1722,6 +1723,8 @@ unsigned int readR(unsigned int addr)
 		val = *((unsigned int *)((unsigned char *)gpio2_base + mmap_seek));
 	else if(mmap_base == GPIO1_BASE)
 		val = *((unsigned int *)((unsigned char *)gpio1_base + mmap_seek));
+	else if(mmap_base == GPIO0_BASE)
+		val = *((unsigned int *)((unsigned char *)gpio0_base + mmap_seek));
 	else if(mmap_base == PMUCRU_BASE)
 		val = *((unsigned int *)((unsigned char *)pmucru_base + mmap_seek));
 	else if(mmap_base == PMUGRF_BASE)
@@ -1785,6 +1788,8 @@ void writeR(unsigned int val, unsigned int addr)
 		*((unsigned int *)((unsigned char *)gpio2_base + mmap_seek)) = val;
 	else if(mmap_base == GPIO1_BASE)
 		*((unsigned int *)((unsigned char *)gpio1_base + mmap_seek)) = val;
+	else if(mmap_base == GPIO0_BASE)
+		*((unsigned int *)((unsigned char *)gpio0_base + mmap_seek)) = val;
 	else if(mmap_base == PMUCRU_BASE)
 		*((unsigned int *)((unsigned char *)pmucru_base + mmap_seek)) = val;
 	else if(mmap_base == PMUGRF_BASE)
@@ -1957,7 +1962,7 @@ int OrangePi_get_gpio_mode(int pin)
 	unsigned int phyaddr = 0;
 	unsigned char mode = -1;
 	
-#if (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_800 || defined CONFIG_ROCK960)
+#if (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_800)
 	unsigned int grf_phyaddr = 0, ddr_phyaddr = 0;
 	int offset = ((index - ((index >> 3) << 3)));
 	if(bank == 1){
@@ -1987,6 +1992,40 @@ int OrangePi_get_gpio_mode(int pin)
 		return mode + 1;//如果不是gpio模式，返回的alt，从2开始，0和1是in和out
 	}
 	
+#elif (defined CONFIG_ROCK960)
+	unsigned int grf_phyaddr = 0, ddr_phyaddr = 0;
+	int offset = ((index - ((index >> 3) << 3)));
+	if(bank == 1){
+		grf_phyaddr = PMUGRF_BASE + ((index >> 3) << 2) + 0x10;
+		ddr_phyaddr = GPIO1_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
+	if(bank == 0){
+		grf_phyaddr = PMUGRF_BASE + ((index >> 3) << 2);
+		ddr_phyaddr = GPIO0_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
+	else if(bank == 2){
+		grf_phyaddr = GRF_BASE + ((index >> 3) << 2);
+		ddr_phyaddr = GPIO2_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
+	else if(bank == 4){
+		grf_phyaddr = GRF_BASE + ((index >> 3) << 2) +0x20;
+		ddr_phyaddr = GPIO4_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
+	else if(bank == 3){
+		grf_phyaddr = GRF_BASE + ((index >> 3) << 2) +0x10;
+		ddr_phyaddr = GPIO3_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
+	else ;
+	if (ORANGEPI_PIN_MASK[bank][index] != -1) {
+		regval = readR(grf_phyaddr);
+		mode = (regval >> (offset << 1)) & 0x3;//获取控制模式的那两位的值
+		if(mode == 0){ //如果是gpio模式
+			regval = readR(ddr_phyaddr);//获取gpio方向寄存器的值
+			return (regval >> index) & 1;//index对应的gpio的方向值，0为in，1为out
+		}
+		return mode + 1;//如果不是gpio模式，返回的alt，从2开始，0和1是in和out
+	}
+
 #elif CONFIG_ORANGEPI_R1PLUS
 	unsigned int grf_phyaddr = 0, ddr_phyaddr = 0;
 	int offset = ((index - ((index >> 3) << 3)));
@@ -2111,7 +2150,11 @@ int OrangePi_set_gpio_mode(int pin, int mode)
 		grf_phyaddr = PMUGRF_BASE + ((index >> 3) << 2) + 0x10;
 		gpio_phyaddr = GPIO1_BASE + GPIO_SWPORTA_DDR_OFFSET;
 	}
-
+	else if(bank == 0){
+		cru_phyaddr = PMUCRU_BASE + PMUCRU_CLKGATE_CON1_OFFSET;
+		grf_phyaddr = PMUGRF_BASE + ((index >> 3) << 2);
+		gpio_phyaddr = GPIO0_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
 	else if(bank == 2){
 		cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
 		grf_phyaddr = GRF_BASE + ((index >> 3) << 2);
@@ -2413,6 +2456,10 @@ int OrangePi_digitalWrite(int pin, int value)
 			phyaddr = GPIO1_BASE + GPIO_SWPORTA_DR_OFFSET;
 			cru_phyaddr = PMUCRU_BASE + PMUCRU_CLKGATE_CON1_OFFSET;
 		}
+		else if(bank == 0){
+			phyaddr = GPIO0_BASE + GPIO_SWPORTA_DR_OFFSET;
+			cru_phyaddr = PMUCRU_BASE + PMUCRU_CLKGATE_CON1_OFFSET;
+		}
 		else if(bank == 2){
 			phyaddr = GPIO2_BASE + GPIO_SWPORTA_DR_OFFSET;			
 			cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
@@ -2522,6 +2569,8 @@ int OrangePi_digitalRead(int pin)
 	unsigned int phyaddr;
 	if(bank == 1)
 		phyaddr = GPIO1_BASE + GPIO_EXT_PORTA_OFFSET;
+	else if(bank == 0)
+		phyaddr = GPIO0_BASE + GPIO_EXT_PORTA_OFFSET;
 	else if(bank == 2)
 		phyaddr = GPIO2_BASE + GPIO_EXT_PORTA_OFFSET;
 	else if(bank == 4)

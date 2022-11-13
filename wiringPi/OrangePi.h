@@ -93,6 +93,7 @@
 /*********** OrangePi RK3399 *************/
 #if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_4_LTS || CONFIG_ORANGEPI_800 || CONFIG_ROCK960
 
+#define GPIO0_BASE                          0xFF720000
 #define GPIO1_BASE 							0xff730000
 #define GPIO2_BASE 							0xff780000
 #define GPIO3_BASE                          0xFF788000
@@ -137,6 +138,7 @@ extern volatile unsigned int *pmugrf_base;
 extern volatile unsigned int *gpio1_base;
 extern volatile unsigned int *gpio4_base;
 extern volatile unsigned int *gpio3_base;
+extern volatile unsigned int *gpio0_base;
 
 #endif /* CONFIG_ORANGEPI_RK3399 */
 //csy 2019.1.8
