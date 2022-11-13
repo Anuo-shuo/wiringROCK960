@@ -1177,7 +1177,7 @@ int pinToGpioOrangePi [64] =
 	 73,  120,      //12,13
 	130,  127,      //14,15
 	129,  123,      //16,17
-	  6,    2,      //18,19
+	 -1,   -1,      //18,19
 	 41,   42,      //20,21
 	121,  128,      //22,23
 	124,  131,      //24,25
@@ -1225,7 +1225,7 @@ int physToWpi[64] =
 	12, 13, //17,18
 	14, 15, //19,20
 	16, 17, //21,22
-	18, 19, //23, 24
+	-1, -1, //23, 24
 	20, 21,	// 25, 26
 
 	22, 23,   //27, 28
@@ -1255,7 +1255,7 @@ char *physNames[64] =
   "   I2C6_SDA", "I2S0_SCLK   ",
   "   I2C1_SCL", "I2S0_SDO0   ",
   "   I2C1_SDA", "I2S0_SDI0   ",
-  "GPIO0_A6_IR", "GPIO0_A2    ",
+  "GPIO0_A6_NC", "GPIO0_A2_NC ",
   "   GPIO1_B1", "GPIO1_B2    ",
   "   GPIO3_D1", "GPIO4_A0    ",
   "   GPIO3_D4", "GPIO4_A3    ",
@@ -1321,11 +1321,11 @@ void OrangePiReadAll(void)
 #elif CONFIG_ORANGEPI_R1PLUS
     printf (" +------+-----+----------+------+---+ R1 Plus  +---+---+--+----------+-----+------+\n");
 #elif CONFIG_ROCK960
-    printf (" +------+-----+----------+------+---+  ROCK960 +---+---+--+----------+-----+------+\n");
+    printf (" +------+-----+-------------+------+---+  ROCK960 +---+---+--+-------------+-----+------+\n");
 #endif
 
-    printf (" | GPIO | wPi |   Name   | Mode | V | Physical | V | Mode | Name     | wPi | GPIO |\n");
-    printf (" +------+-----+----------+------+---+----++----+---+------+----------+-----+------+\n");
+    printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |    Name     | wPi | GPIO |\n");
+    printf (" +------+-----+-------------+------+---+----++----+---+------+-------------+-----+------+\n");
 
 #if defined CONFIG_ORANGEPI_H3 || defined CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_PRIME || CONFIG_ORANGEPI_WIN || CONFIG_ROCK960
     for (pin = 1 ; pin <= 40; pin += 2)
@@ -1341,8 +1341,8 @@ void OrangePiReadAll(void)
 #endif
         readallPhys(pin);
 
-    printf (" +------+-----+----------+------+---+----++----+---+------+----------+-----+------+\n");
-    printf (" | GPIO | wPi |   Name   | Mode | V | Physical | V | Mode | Name     | wPi | GPIO |\n");
+    printf (" +------+-----+-------------+------+---+----++----+---+------+-------------+-----+------+\n");
+    printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |    Name     | wPi | GPIO |\n");
 
 #ifdef CONFIG_ORANGEPI_PC2
     printf (" +------+-----+----------+------+---+  OPi PC2 +---+------+----------+-----+------+\n");
@@ -1379,7 +1379,7 @@ void OrangePiReadAll(void)
 #elif CONFIG_ORANGEPI_R1PLUS
     printf (" +------+-----+----------+------+---+ R1 Plus  +---+---+--+----------+-----+------+\n");
 #elif CONFIG_ROCK960
-    printf (" +------+-----+----------+------+---+ ROCK960  +---+---+--+----------+-----+------+\n");
+    printf (" +------+-----+-------------+------+---+  ROCK960 +---+---+--+-------------+-----+------+\n");
 #endif
 
     wiringPiDebug = tmp;
