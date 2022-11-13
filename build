@@ -79,7 +79,9 @@ select_boards()
 		"orangepizero2-lts"
 		"orangepizero2-b"
 		"orangepir1plus-lts"
-		"orangepir1plus")
+		"orangepir1plus"
+    "rock960")
+
 
 	if [[ -f /etc/orangepi-release ]]; then
 

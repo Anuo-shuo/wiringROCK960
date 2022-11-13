@@ -781,7 +781,7 @@ int piGpioLayout (void)
       break ;
 
 	
-#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_4_LTS || CONFIG_ORANGEPI_800
+#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_4_LTS || CONFIG_ORANGEPI_800 || CONFIG_ROCK960
   strcpy(line, "Hardware		 : Rockchip rk3399 Family");	
 #elif CONFIG_ORANGEPI_R1PLUS
   strcpy(line, "Hardware		 : Rockchip rk3328 Family");	
@@ -801,7 +801,7 @@ int piGpioLayout (void)
 
   fclose (cpuFd) ;
 
-#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_4_LTS || CONFIG_ORANGEPI_R1PLUS || CONFIG_ORANGEPI_800
+#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_4_LTS || CONFIG_ORANGEPI_R1PLUS || CONFIG_ORANGEPI_800 || CONFIG_ROCK960
 	  strcpy(line, "Revision  : 0000");
 #endif
 
@@ -967,7 +967,7 @@ void piBoardId (int *model, int *rev, int *mem, int *maker, int *warranty)
       break ;
 
   fclose (cpuFd) ;
-#if (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_800 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_R1PLUS)
+#if (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_800 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_R1PLUS || defined CONFIG_ROCK960)
 	strcpy(line, "Revision	: 0000");
 #endif
 
@@ -1346,7 +1346,7 @@ void pinModeAlt (int pin, int mode)
 
 
 #ifdef CONFIG_ORANGEPI
-#if !(defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_800 || defined CONFIG_ORANGEPI_R1PLUS || CONFIG_ORANGEPI_2G_IOT)
+#if !(defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_800 || defined CONFIG_ORANGEPI_R1PLUS || defined CONFIG_ROCK960|| CONFIG_ORANGEPI_2G_IOT)
         if(version == ORANGEPI) {
                 if (wiringPiDebug)
                         printf("PinModeAlt: pin:%d,mode:%d\n", pin, mode);
@@ -2404,7 +2404,7 @@ int wiringPiSetup (void)
 				"wiringPiSetup: mmap (GPIO) failed: %s\n", strerror(errno));
 #else
 
-#if ! (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_800 || defined CONFIG_ORANGEPI_R1PLUS)
+#if ! (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4 || defined CONFIG_ORANGEPI_4_LTS || defined CONFIG_ORANGEPI_800 || defined CONFIG_ORANGEPI_R1PLUS || defined CONFIG_ROCK960)
 
 	/* GPIO */
 #if CONFIG_ORANGEPI_LITE2 || CONFIG_ORANGEPI_3 || CONFIG_ORANGEPI_ZERO2

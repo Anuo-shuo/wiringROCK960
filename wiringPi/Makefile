@@ -116,6 +116,10 @@ ifeq ($(BOARD), orangepir1plus-rk3328)
 EXTRA_CFLAGS = -DCONFIG_ORANGEPI_R1PLUS
 endif
 
+ifeq ($(BOARD), rock960)
+EXTRA_CFLAGS = -DCONFIG_ROCK960
+endif
+
 EXTRA_CFLAGS += -DCONFIG_ORANGEPI
 
 ###############################################################################
