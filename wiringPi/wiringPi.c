@@ -2478,6 +2478,10 @@ int wiringPiSetup (void)
 	if ((int32_t)(unsigned long)gpio4_base == -1)
 		return wiringPiFailure(WPI_ALMOST,
 					"wiringPiSetup: mmap (GPIO4_BASE) failed: %s\n", strerror(errno));
+  gpio3_base = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO3_BASE);
+	if ((int32_t)(unsigned long)gpio3_base == -1)
+		return wiringPiFailure(WPI_ALMOST,
+					"wiringPiSetup: mmap (GPIO3_BASE) failed: %s\n", strerror(errno));
 #endif  /* CONFIG_ORANGEPI_RK3399  */
 #endif
 

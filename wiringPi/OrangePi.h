@@ -95,6 +95,7 @@
 
 #define GPIO1_BASE 							0xff730000
 #define GPIO2_BASE 							0xff780000
+#define GPIO3_BASE                          0xFF788000
 #define GPIO4_BASE 							0xff790000
 #define GPIO_NUM                          	(0x40)
 #define GPIO_BIT(x)                        	(1UL << (x))
@@ -135,6 +136,7 @@ extern volatile unsigned int *pmucru_base;
 extern volatile unsigned int *pmugrf_base;
 extern volatile unsigned int *gpio1_base;
 extern volatile unsigned int *gpio4_base;
+extern volatile unsigned int *gpio3_base;
 
 #endif /* CONFIG_ORANGEPI_RK3399 */
 //csy 2019.1.8

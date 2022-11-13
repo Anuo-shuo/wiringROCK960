@@ -1646,6 +1646,7 @@ volatile uint32_t *pmugrf_base;
 volatile uint32_t *pmucru_base;
 volatile uint32_t *gpio1_base;
 volatile uint32_t *gpio4_base;
+volatile uint32_t *gpio3_base;
 #endif  /* CONFIG_ROCK960 */
 
 
@@ -1727,6 +1728,8 @@ unsigned int readR(unsigned int addr)
 		val = *((unsigned int *)((unsigned char *)pmugrf_base + mmap_seek));
 	else if(mmap_base == GPIO4_BASE)
 		val = *((unsigned int *)((unsigned char *)gpio4_base + mmap_seek));
+	else if(mmap_base == GPIO3_BASE)
+		val = *((unsigned int *)((unsigned char *)gpio3_base + mmap_seek));
 	else ;
 
 	return val;
@@ -1788,6 +1791,8 @@ void writeR(unsigned int val, unsigned int addr)
 		*((unsigned int *)((unsigned char *)pmugrf_base + mmap_seek)) = val;
 	else if(mmap_base == GPIO4_BASE)
 		*((unsigned int *)((unsigned char *)gpio4_base + mmap_seek)) = val;
+	else if(mmap_base == GPIO3_BASE)
+		*((unsigned int *)((unsigned char *)gpio3_base + mmap_seek)) = val;
 	else ;
 
 #elif (defined CONFIG_ORANGEPI_R1PLUS)
@@ -1967,6 +1972,10 @@ int OrangePi_get_gpio_mode(int pin)
 		grf_phyaddr = GRF_BASE + ((index >> 3) << 2) +0x20;
 		ddr_phyaddr = GPIO4_BASE + GPIO_SWPORTA_DDR_OFFSET;
 	}
+	else if(bank == 3){
+		grf_phyaddr = GRF_BASE + ((index >> 3) << 2) +0x10;
+		ddr_phyaddr = GPIO3_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
 	else ;
 	if (ORANGEPI_PIN_MASK[bank-1][index] != -1) {
 		regval = readR(grf_phyaddr);
@@ -2112,6 +2121,11 @@ int OrangePi_set_gpio_mode(int pin, int mode)
 		cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
 		grf_phyaddr = GRF_BASE + ((index >> 3) << 2) +0x20;
 		gpio_phyaddr = GPIO4_BASE + GPIO_SWPORTA_DDR_OFFSET;
+	}
+	else if(bank == 3){
+		cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
+		grf_phyaddr = GRF_BASE + ((index >> 3) << 2) +0x10;
+		gpio_phyaddr = GPIO3_BASE + GPIO_SWPORTA_DDR_OFFSET;
 	}
 	else;
 
@@ -2407,6 +2421,10 @@ int OrangePi_digitalWrite(int pin, int value)
 			phyaddr = GPIO4_BASE + GPIO_SWPORTA_DR_OFFSET;			
 			cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
 		}
+		else if(bank == 3){
+			phyaddr = GPIO3_BASE + GPIO_SWPORTA_DR_OFFSET;			
+			cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
+		}
 		else;
 		
 #elif (defined CONFIG_ORANGEPI_R1PLUS)
@@ -2508,6 +2526,8 @@ int OrangePi_digitalRead(int pin)
 		phyaddr = GPIO2_BASE + GPIO_EXT_PORTA_OFFSET;
 	else if(bank == 4)
 		phyaddr = GPIO4_BASE + GPIO_EXT_PORTA_OFFSET;
+	else if(bank == 3)
+		phyaddr = GPIO3_BASE + GPIO_EXT_PORTA_OFFSET;
 	else;
 	
 #elif (defined CONFIG_ORANGEPI_R1PLUS)
