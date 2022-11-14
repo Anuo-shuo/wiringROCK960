@@ -1183,9 +1183,12 @@ int pinToGpioOrangePi [64] =
 	124,  131,      //24,25
 	125,  132,      //26,27
 	 50,   55,      //28,29
-	-1,   -1,    //30,31
+    //LED
+	146,  150,      //30,31
+	152,  156,      //32,33
+    158,  157,      //34,35
 
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // ... 47
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // ... 47
 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,// ... 63
 };
 /*
@@ -1210,6 +1213,10 @@ int pinToGpioOrangePi [64] =
   "       1.8V", "12V         ",
   "         5V", "12V         ",
   "        GND", "GND         ",
+
+  30 31" LED1_GREEN", "LED2_GREEN  ", 4C2 4C6 128+16+2=146 128+16+6=150
+  32 33" LED3_GREEN", "LED3_GREEN  ", 4D0 4D4 128+24+0=152 128+24+4=156
+  34 35"    BT_BLUE", "WIFI_YELLOW ", 4D6 4D5          158          157
 */
 int physToWpi[64] =
 {
@@ -1235,9 +1242,13 @@ int physToWpi[64] =
 	-1, -1, //35, 36
 	-1, -1, //37, 38
 	-1, -1, //39, 40
-	// Padding:
 
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,	// ... 56
+    //LED
+	30, 31, //LED1 LED2
+    32, 33, //LED3 ELD4
+    34, 35, //BT_LED WIFI_LED
+	// Padding:
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,	// ... 56
 	-1, -1, -1, -1, -1, -1, -1,	// ... 63
 };
 
@@ -1263,10 +1274,10 @@ char *physNames[64] =
   "   GPIO1_C2", "GPIO1_C7    ",
   "       1.8V", "12V         ",
   "         5V", "12V         ",
-  "        GND", "GND         ",
-        NULL, NULL,
-        NULL, NULL,
-        NULL, NULL,
+  "        GND", "GND         ",//GPIO到这结束
+  " LED1_GREEN", "LED2_GREEN  ",
+  " LED3_GREEN", "LED3_GREEN  ",
+  "    BT_BLUE", "WIFI_YELLOW ",//六个LED
         NULL, NULL,
         NULL, NULL,
         NULL, NULL,
@@ -1327,7 +1338,7 @@ void OrangePiReadAll(void)
     printf (" | GPIO | wPi |     Name    | Mode | V | Physical | V | Mode |     Name     | wPi | GPIO |\n");
     printf (" +------+-----+-------------+------+---+----++----+---+------+--------------+-----+------+\n");
 
-#if defined CONFIG_ORANGEPI_H3 || defined CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_PRIME || CONFIG_ORANGEPI_WIN || CONFIG_ROCK960
+#if defined CONFIG_ORANGEPI_H3 || defined CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4 || CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_PRIME || CONFIG_ORANGEPI_WIN 
     for (pin = 1 ; pin <= 40; pin += 2)
 
 #elif CONFIG_ORANGEPI_LITE2 || CONFIG_ORANGEPI_ZEROPLUS2_H3 || CONFIG_ORANGEPI_3 || CONFIG_ORANGEPI_ZERO || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_R1 || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_800 || CONFIG_ORANGEPI_4_LTS
@@ -1338,6 +1349,8 @@ void OrangePiReadAll(void)
 
 #elif CONFIG_ORANGEPI_ZERO2
 	for (pin = 1 ; pin <= 34; pin += 2)
+#elif CONFIG_ROCK960
+	for (pin = 1 ; pin <= 46; pin += 2)
 #endif
         readallPhys(pin);
 
